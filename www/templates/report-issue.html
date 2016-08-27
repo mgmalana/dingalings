@@ -1,0 +1,24 @@
+<ion-view view-title="Report an Issue">
+  <div class="bar bar-header bar-light">
+    <h1 class="title">Report an Issue</h1>
+  </div>
+  
+  <ion-content>
+    <div class="list">
+      <label class="item item-input">
+        <input type="text" placeholder="Title" ng-model="issue.title">
+      </label>
+      <label class="item item-input">
+        <input type="text" placeholder="Details" ng-mdoel="issue.content">
+      </label>
+    </div>
+
+    <h1 ng-bind="lat"></h1>
+    <h1 ng-bind="long"></h1>
+
+    <button class="button button-block button-positive">
+      Submit
+    </button>
+  </ion-content>
+
+</ion-view>

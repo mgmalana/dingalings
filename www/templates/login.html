@@ -1,0 +1,46 @@
+<ion-view class="profile-header">
+
+  <ion-nav-bar class="bar-balanced" ng-style="{'background-color': 'green'}">
+    <ion-nav-back-button>
+    </ion-nav-back-button>
+  </ion-nav-bar>
+
+  <ion-content class="page-bg">
+    <div class="white-overlay">
+      <div class="row text-center responsive-lg">
+        <p class="size-l white-text padding" style="margin: 0 auto">iden-tree-fy</p>
+      </div>
+
+      <div class="row">
+        <div class="col col-80 col-offset-10 no-padding">
+          <p class="error" ng-bind="error"></p>
+          <label class="item item-input no-border fade-input">
+            <input type="text" class="size-s white-text" placeholder="Username" ng-model="data.username">
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col col-80 col-offset-10 no-padding">
+          <div class="fade-input holder-wd">
+            <div class="white-divider"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col col-80 col-offset-10 no-padding">
+          <label class="item item-input no-border fade-input">
+            <input type="password" class="size-s white-text" placeholder="Password" ng-model="data.password">
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col col-80 col-offset-10">
+          <button class="button button-block button-balanced" ng-click="login(data)" ng-disabled="isRequesting">Login</button>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

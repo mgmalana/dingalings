@@ -1,0 +1,32 @@
+<ion-view view-title="Kiosk Locator">
+  <ion-nav-bar class="bar-assertive" ng-style="{'background-color': '#F83828'}">
+    <ion-nav-buttons side="left">
+          <a class="button button-clear" href="#/dash">
+        <i class="big-icon ion-chevron-left"></i>
+      </a>
+    </ion-nav-buttons>
+
+    <ion-nav-buttons side="right">
+      <button class = "button button-icon icon ion-navicon" ng-click = "toggleRight()"></button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+
+  <ion-content>
+    <ui-gmap-google-map class="angular-google-map-container" center='map.center' zoom='map.zoom'></ui-gmap-google-map>
+    <!-- <div id="map" data-tap-disabled="true">
+      <ng-map center="43.07493,-89.381388" zoom="3">
+    </div> -->
+  </ion-content>
+
+  <div class="bar bar-footer bar-stable" ng-style="{'background-color': '#F83828'}">
+    <button class="button button-icon icon ion-ios-navigate-outline" ng-click="centerOnMe()">
+    </button>
+  </div>
+
+  <!-- <ion-footer-bar class="bar-dark">
+     <button class="button button-icon icon ion-ios-location-outline pull-right" ng-click="centerOnMe()">
+       Find Me
+     </button>
+  </ion-footer-bar> -->
+
+</ion-view>

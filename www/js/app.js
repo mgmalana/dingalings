@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'uiGmapgoogle-maps'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -23,7 +23,13 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, uiGmapGoogleMapApiProvider) {
+
+  uiGmapGoogleMapApiProvider.configure({
+    key: 'AIzaSyBvu18ae8KqlGXYe7tI4r55kwhy1jMk5xw',
+    v: '3', //defaults to latest 3.X anyhow
+    libraries: 'weather,geometry,visualization'
+  });
 
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
@@ -31,8 +37,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   // Each state's controller can be found in controllers.js
   $stateProvider
 
+  .state('login', {
+    url: '/login',
+    templateUrl: 'templates/login.html',
+    controller: 'LoginCtrl'
+  })
+
   // setup an abstract state for the tabs directive
-    .state('tab', {
+  .state('tab', {
     url: '/tab',
     abstract: true,
     templateUrl: 'templates/tabs.html'
@@ -77,6 +89,20 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         controller: 'AccountCtrl'
       }
     }
+  })
+
+  // State route for Kiosk Locator
+  .state('kiosklocator', {
+    url: '/kiosk/locator',
+    templateUrl: 'templates/page-kiosk-locator.html',
+    controller: 'MapCtrl'
+  })
+
+  // State route for Kiosk Locator
+  .state('report-issue', {
+    url: '/issue',
+    templateUrl: 'templates/report-issue.html',
+    controller: 'IssueCtrl'
   });
 
   // if none of the above states are matched, use this as the fallback
