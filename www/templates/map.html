@@ -1,0 +1,18 @@
+<ion-view view-title="Map">
+  <ion-content>
+    <ui-gmap-google-map center='map.center' zoom='map.zoom'>
+      <ui-gmap-marker
+        idKey='marker.id'
+        coords='marker.coords'
+        options='marker.options'>
+      </ui-gmap-marker>
+    </ui-gmap-google-map>
+  </ion-content>
+
+  <ion-footer-bar class="bar-dark">
+     <button class="button button-icon icon ion-ios-location-outline pull-right" ng-click="centerOnMe()">
+       Find Me
+     </button>
+  </ion-footer-bar>
+
+</ion-view>
