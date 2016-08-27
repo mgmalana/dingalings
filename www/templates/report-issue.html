@@ -1,24 +1,28 @@
 <ion-view view-title="Report an Issue">
-  <div class="bar bar-header bar-light">
-    <h1 class="title">Report an Issue</h1>
-  </div>
-  
+
   <ion-content>
-    <div class="list">
-      <label class="item item-input">
-        <input type="text" placeholder="Title" ng-model="issue.title">
-      </label>
-      <label class="item item-input">
-        <input type="text" placeholder="Details" ng-mdoel="issue.content">
-      </label>
+    <center>
+      <div class="">
+        <center>
+          <img src="../img/mockup-leaf.jpg" height='250px' align="center center">
+        </center>
+      </div>
+    </center>
+    <br>
+    <center>
+    <h4 ng-show="isEnabled">What issue would you like to report?</h4>
+    <h4 ng-show="!isEnabled">Retrieving your location...</h4>
+    </center>
+    <div class="row">
+      <button ng-disabled="!isEnabled" ng-click="sendReport('Deforestation')" class="button button-block button-assertive btn-radius"><small><b>DEFORESTATION</b></small></button>
     </div>
-
-    <h1 ng-bind="lat"></h1>
-    <h1 ng-bind="long"></h1>
-
-    <button class="button button-block button-positive">
-      Submit
-    </button>
+    <div class="row">
+      <button ng-disabled="!isEnabled" ng-click="sendReport('Forest Fire')" class="button button-block button-assertive btn-radius"><small><b>FOREST FIRE</b></small></button>
+    </div>
+    <div class="row">
+      <button ng-disabled="!isEnabled" ng-click="sendReport('Illegal Logging')" class="button button-block button-assertive btn-radius"><small><b>ILLEGAL LOGGING</b></small></button>
+    </div>
+    </div>
   </ion-content>
 
 </ion-view>

@@ -13,7 +13,7 @@ angular.module('starter.controllers', [])
     $scope.isRequesting = true;
 
     AuthService.login($scope.data.username, $scope.data.password).then(function(authenticated) {
-      $state.go('tab.chats', {}, {reload: true});
+      $state.go('tab.dash', {}, {reload: true});
       $scope.isRequesting = false;
     }, function(err) {
       console.log(err);
@@ -164,8 +164,46 @@ angular.module('starter.controllers', [])
   $scope.chat = Chats.get($stateParams.chatId);
 })
 
-.controller('IssueCtrl', function($scope, $stateParams, $http, AuthService, $cordovaGeolocation) {
-  $scope.issue = {};
+.controller('IssueCtrl', function($scope, $stateParams, $http, AuthService, $ionicPopup) {
+  $scope.showAlert = function(title, message) {
+   var alertPopup = $ionicPopup.alert({
+     title: title,
+     template: message
+   });
+  };
+
+  $scope.isEnabled = false;
+
+  navigator.geolocation.getCurrentPosition(function(pos) {
+    $scope.isEnabled = true;
+    $scope.coords = {
+      latitude: pos.coords.latitude,
+      longitude: pos.coords.longitude
+    };
+  }, function(error) {
+    $scope.showAlert('Error', 'We couldn\'t retrieve your location.');
+  });
+
+  $scope.sendReport = function(reportType) {
+    if ($scope.coords) {
+      $scope.issue = {
+        title: reportType,
+        content: '',
+        latitude: $scope.coords.latitude,
+        longitude: $scope.coords.longitude
+      };
+
+      console.log(AuthService.linkApi);
+      $http.post(AuthService.linkApi + '/api/issues', $scope.issue).success(function(response) {
+        $scope.showAlert('Success', 'We sent your issue to the authorities');
+      }).error(function(response) {
+        $scope.showAlert('Error', 'Sorry! We couldn\'t communicate with the servers');
+      });
+    } else {
+      $scope.showAlert('Error', 'We couldn\'t track your coordinates');
+    }
+  };
+  /*$scope.issue = {};
 
   $scope.lat = 'asd';
   console.log('ay');
@@ -182,7 +220,7 @@ angular.module('starter.controllers', [])
       $scope.long = long;
     }, function(err) {
       $scope.lat = err;
-    });
+    });*/
 
   /*$http.post(AuthService.linkApi + '/api/issues', $scope.issue).success(function (response) {
 
@@ -203,6 +241,16 @@ angular.module('starter.controllers', [])
   });
 })
 
+.controller('PromptCtrl', function($scope, $state) {
+  $scope.goToState = function(state) {
+    if (state === 'identify') {
+      $state.go('identify', {}, {reload: true});
+    } else {
+      $state.go('report-issue', {}, {reload: true});
+    }
+  };
+})
+
 .controller('MapCtrl', function($scope, $state, $ionicLoading, $compile, $ionicPlatform, $ionicPopup, uiGmapGoogleMapApi, $ionicPopup) {
   $scope.showAlert = function(title, message) {
    var alertPopup = $ionicPopup.alert({
@@ -215,30 +263,16 @@ angular.module('starter.controllers', [])
    });
   };
 
-  $scope.showAlert('Eyy', 'Platform is ' + ionic.Platform.platform() + ' // isIOS: ' + ionic.Platform.isIOS());
+  // $scope.showAlert('Eyy', 'Platform is ' + ionic.Platform.platform() + ' // isIOS: ' + ionic.Platform.isIOS());
 
- 
-  $scope.map = { center: { latitude: 24, longitude: 57 }, zoom: 16 };
-  // $scope.map = { center: { latitude: 14.165507, longitude: 121.239502 }, zoom: 16 };
+  $scope.places = [];
+  // $scope.map = { center: { latitude: 24, longitude: 57 }, zoom: 16 };
+  $scope.map = { center: { latitude: 14.165507, longitude: 121.239502 }, zoom: 16 };
   console.log(ionic.Platform.platform());
 
   var currentPlatform = ionic.Platform.platform();
   var currentPlatformVersion = ionic.Platform.version();
   uiGmapGoogleMapApi.then(function(maps) {
-    if (ionic.Platform.isIOS()) {
-      console.log('isIOS');
-      var posOptions = {timeout: 10000, enableHighAccuracy: false};
-      $cordovaGeolocation
-        .getCurrentPosition(posOptions)
-        .then(function (position) {
-          var lat  = position.coords.latitude
-          var long = position.coords.longitude
-          $scope.showAlert('Success', 'lat: ' + lat + ' : long: ' + long);
-        }, function(err) {
-          $scope.showAlert('Error', err);
-        });
-    } else {
-      console.log('aintIOS');
       navigator.geolocation.getCurrentPosition(function(pos) {
         $scope.map = { center: { latitude: pos.coords.latitude, longitude: pos.coords.longitude }, zoom: 16 };
         // $scope.loading.hide();
@@ -253,10 +287,22 @@ angular.module('starter.controllers', [])
             icon: 'img/Identreefy-16-xs.png'
           }
         };
+        var place = {
+          id: 0,
+          latitude: pos.coords.latitude,
+          longitude: pos.coords.longitude,
+          title: 'Hey'
+        };
+
+        $scope.places.push(place);
         console.log($scope.marker);
       }, function(error) {
         $scope.showAlert('Web Error', error.message);
       });
-    }
   });
+
+  $scope.clickedLocation = function() {
+    console.log('af');
+    $state.go('prompt', {}, {reload: true});
+  };
 });

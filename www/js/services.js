@@ -89,7 +89,7 @@ angular.module('starter.services', [])
     register: register,
     getStoredUsername, getStoredUsername,
     isAuthenticated: function() { return isAuthenticated; },
-    linkApi: function() {return API_ROOT; },
+    linkApi: API_ROOT,
     username: function() { return username; },
     role: function() { return role; }
   };

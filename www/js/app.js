@@ -110,9 +110,21 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     url: '/issue',
     templateUrl: 'templates/report-issue.html',
     controller: 'IssueCtrl'
+  })
+
+  // State route for Kiosk Locator
+  .state('identify', {
+    url: '/identify',
+    templateUrl: 'templates/identify.html'
+  })
+
+  .state('prompt', {
+    url: '/prompt',
+    templateUrl: 'templates/prompt.html',
+    controller: 'PromptCtrl'
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/map');
+  $urlRouterProvider.otherwise('/tab/dash');
 
 });

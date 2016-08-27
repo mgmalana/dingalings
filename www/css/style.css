@@ -1,2 +1,58 @@
 /* Empty. Add your own CSS if you like */
 .angular-google-map-container { height: 720px; }
+
+
+.prompt-report-btn {
+  background: url('../img/Identreefy-13.png') no-repeat center;
+  height: 25%;
+  width: 25%;
+  border: none;
+}
+.prompt-identify-btn {
+  background: url('../img/Identreefy-14.png') no-repeat center;
+  height: 25%;
+  width: 25%;
+  border: none;
+}
+
+.btn-radius {
+	border-radius: 50px;
+	margin-left: 20px;;
+	margin-right: 20px;
+}
+
+.fixed-header{
+  margin-top:43px;
+  /* 
+   The ionic header bar is 43px in height,
+   put your content below the header bar.
+  */
+}
+
+.platform-webview.platform-ios.platform-cordova .fixed-header{
+  margin-top:63px;
+  /* On iOS, moving a div out of ion-content,
+  I think you need to compensation for the 20px system status bar.
+  so it's 43px+20px=63px. but I'm not so sure, it hasn't been tested.
+  Test it yourself and make modifications if needed.
+  */
+}
+
+.my-picture
+{
+  height:250px;
+  width:100%;
+  position:absolute;
+  background:grey;
+  color:red;
+  text-align:center;
+}
+
+.ion-content-below-my-picture{
+  margin-top:250px!important;
+}
+
+ion-card {
+    position: relative;
+    text-align: center;
+  }
