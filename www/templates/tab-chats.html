@@ -5,10 +5,9 @@
     <img ng-src="{{picture}}">
     <a href="#/issue" class="button">Report</a>
     <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in chats" type="item-text-wrap" href="#/tab/chats/{{chat.id}}">
-        <img ng-src="{{chat.face}}">
-        <h2>{{chat.name}}</h2>
-        <p>{{chat.lastText}}</p>
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="tree in trees" type="item-text-wrap" ng-click="chooseTree(tree)" >
+        <img ng-src="{{tree.picture}}">       
+        <h2>{{tree.name}}</h2>
         <i class="icon ion-chevron-right icon-accessory"></i>
 
         <ion-option-button class="button-assertive" ng-click="remove(chat)">
