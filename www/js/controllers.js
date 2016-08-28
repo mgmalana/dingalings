@@ -27,6 +27,7 @@ angular.module('starter.controllers', [])
 })
 
 .controller('DashCtrl', function($scope, $state, AuthService) {
+  console.log(AuthService.getStoredUserID);
   $scope.goToState = function(state) {
     $state.go(state, {}, {reload: true});
   };
@@ -200,7 +201,8 @@ angular.module('starter.controllers', [])
         title: reportType,
         content: '',
         latitude: $scope.coords.latitude,
-        longitude: $scope.coords.longitude
+        longitude: $scope.coords.longitude,
+        user: AuthService.getStoredUserID
       };
 
       console.log(AuthService.linkApi);
