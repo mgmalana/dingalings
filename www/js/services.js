@@ -4,7 +4,7 @@ angular.module('starter.services', [])
 .service('AuthService', function($q, $http) {
   var LOCAL_STORED_USERNAME = 'locallyStoredUsername';
   var LOCAL_STORED_USERID = 'locallyStoredUserID';
-  var API_ROOT = "http://172.20.10.3:3000"
+  var API_ROOT = "http://localhost:3000"
   var userId = '';
   var username = '';
   var isAuthenticated = false;

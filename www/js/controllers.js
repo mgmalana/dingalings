@@ -27,7 +27,9 @@ angular.module('starter.controllers', [])
 })
 
 .controller('DashCtrl', function($scope, $state, AuthService) {
-  
+  $scope.goToState = function(state) {
+    $state.go(state, {}, {reload: true});
+  };
 })
 
 .controller('ChatsCtrl', function($scope, Chats, Camera) {
@@ -263,8 +265,21 @@ angular.module('starter.controllers', [])
    });
   };
 
-  // $scope.showAlert('Eyy', 'Platform is ' + ionic.Platform.platform() + ' // isIOS: ' + ionic.Platform.isIOS());
+  $scope.show = function() {
+    $ionicLoading.show({
+      template: 'Tracking your location...'
+    }).then(function(){
+       console.log("The loading indicator is now displayed");
+    });
+  };
+  $scope.hide = function(){
+    $ionicLoading.hide().then(function(){
+       console.log("The loading indicator is now hidden");
+    });
+  };
 
+  // $scope.showAlert('Eyy', 'Platform is ' + ionic.Platform.platform() + ' // isIOS: ' + ionic.Platform.isIOS());
+  $scope.show();
   $scope.places = [];
   // $scope.map = { center: { latitude: 24, longitude: 57 }, zoom: 16 };
   $scope.map = { center: { latitude: 14.165507, longitude: 121.239502 }, zoom: 16 };
@@ -274,9 +289,10 @@ angular.module('starter.controllers', [])
   var currentPlatformVersion = ionic.Platform.version();
   uiGmapGoogleMapApi.then(function(maps) {
       navigator.geolocation.getCurrentPosition(function(pos) {
+        $scope.hide();
         $scope.map = { center: { latitude: pos.coords.latitude, longitude: pos.coords.longitude }, zoom: 16 };
         // $scope.loading.hide();
-        $scope.showAlert('Eyy found u', 'lat: ' + pos.coords.latitude + ' : long: ' + pos.coords.longitude);
+        // $scope.showAlert('Eyy found u', 'lat: ' + pos.coords.latitude + ' : long: ' + pos.coords.longitude);
         $scope.marker = {
           id: 0,
           coords: {

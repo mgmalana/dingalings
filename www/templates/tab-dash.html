@@ -1,17 +1,31 @@
 <ion-view view-title="Dashboard">
+  <ion-nav-bar class="bar-balanced">
+  </ion-nav-bar>
+
+  <br>
+
   <ion-content class="padding">
   	<div class="row row-center">
-  		<div class="col col-center">
-        <img src="../img/Identreefy_Logo.png" style="width: 100%; height: auto;">
-        <img src="../img/Identreefy_Logo Name.png" style="width: 100%; height: auto;">
-  		</div>
+  		<div class="col col-center"><center><br><br><br>
+        <img src="../img/Identreefy_Logo.png" style="width: 40%; height: auto;">
+        <img src="../img/Identreefy_Logo Name.png" style="width: 70%; height: auto;">
+  		</center></div>
   	</div>
     <center>
-    <ul>
-      <li><a href="#/login">Simulate Login</a></li>
-      <li><a href="#/prompt">Selection Menu</a></li>
-      <li><a href="#/map">View the Map</a></li>
-    </ul>
+
+    <br><br><br><br>
+
+    <div class="row">
+      <button ng-click="goToState('map')" class="button button-small button-block button-balanced btn-radius"><small><b>VIEW THE MAP</b></small></button>
+    </div>
+
+    <div class="row">
+      <button ng-click="goToState('prompt')" class="button button-small button-block button-balanced btn-radius"><small><b>SELECTION MENU</b></small></button>
+    </div>
+
+    <div class="row">
+      <button ng-click="goToState('login')" class="button button-small button-block button-balanced btn-radius"><small><b>SIMULATE LOGIN</b></small></button>
+    </div>
     </center>
   </ion-content>
 </ion-view>
