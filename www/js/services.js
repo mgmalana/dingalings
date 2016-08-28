@@ -81,13 +81,23 @@ angular.module('starter.services', [])
     return '';
   };
 
+  var getStoredUserID = function() {
+    var user = window.localStorage.getItem(LOCAL_STORED_USERID);
+    
+    if (user)
+      return user;
+    
+    return '';
+  };
+
   loadUserCredentials();
 
   return {
     login: login,
     logout: logout,
     register: register,
-    getStoredUsername, getStoredUsername,
+    getStoredUsername: getStoredUsername,
+    getStoredUserID: getStoredUserID,
     isAuthenticated: function() { return isAuthenticated; },
     linkApi: API_ROOT,
     username: function() { return username; },
