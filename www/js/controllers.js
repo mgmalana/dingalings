@@ -46,64 +46,7 @@ angular.module('starter.controllers', [])
   //   Chats.remove(chat);
   // };
 
-  $scope.trees = [
-    {
-      name:"Palmate",
-      picture:"img/Cards-01.png",
-      nextlevel:[
-        {
-          name:"Apocynaceae",
-          picture:"img/Cards-06.png",
-        },
-        {
-          name:"Verbenaceae",
-          picture:"img/Cards-07.png",
-        },
-        { 
-          name: "Bombacaceae",
-          picture: "img/Cards-08.png",
-        },
-        {
-          name:"Caricaceae",
-          picture: "img/Cards-09.png",
-        }
-      ]
-    },
-    {
-      name:"Cards-02.png",
-      picture:"",
-      nextlevel:[
-        {
-          name:"Leguminosae (Papilionoideae)",
-          picture: "img/Cards-12.png",
-        },
-        {
-          name:"Euphorbiaceae",
-          picture: "img/Cards-11.png",
-        },
-        { 
-          name:"Rutaceae",
-          picture: "img/Cards-10.png"
-        },
-        {
-          name:"Myrtaceae",
-          picture: ""
-        } 
-      ]
-    },
-    {
-      name:"Opposite single",
-      picture: "img/Cards-03.png"
-    },
-    {
-      name:"Pinnate",
-      picture: "img/Cards-04.png"
-    },
-    {
-      name:"Alternate single",
-      picture: "img/Cards-05.png"
-    }    
-  ];
+
 
   function getPicture(tree){
     return tree.picture;
@@ -139,6 +82,66 @@ angular.module('starter.controllers', [])
       console.log(err);
     });
   };
+})
+
+.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
+  $scope.chat = Chats.get($stateParams.chatId);
+})
+
+.controller('IdentifyCtrl', function($scope, $stateParams, Chats) {
+  $scope.trees = [
+  {
+    name:"Palmate",
+    picture:"img/card-01.png",
+    nextlevel:[
+      {
+        name:"Apocynaceae",
+        picture:"img/card-06.png",
+      },
+      {
+        name:"Verbenaceae",
+        picture:"img/card-07.png",
+      },
+      { 
+        name: "Bombacaceae",
+        picture: "img/card-08.png",
+      },
+      {
+        name:"Caricaceae",
+        picture: "img/card-09.png",
+      }
+    ]
+  },
+  {
+    name:"Trifoliate",
+    picture:"img/card-02.png",
+    nextlevel:[
+      {
+        name:"Leguminosae (Papilionoideae)",
+        picture: "img/card-12.png",
+      },
+      {
+        name:"Euphorbiaceae",
+        picture: "img/card-11.png",
+      },
+      { 
+        name:"Rutaceae",
+        picture: "img/card-10.png"
+      }
+    ]
+  },
+  {
+    name:"Opposite single",
+    picture: "img/card-03.png"
+  },
+  {
+    name:"Pinnate",
+    picture: "img/card-04.png"
+  },
+  {
+    name:"Alternate single",
+    picture: "img/card-05.png"
+  }];
 
   $scope.chooseTree = function (tree){
     if(tree.hasOwnProperty('nextlevel')){
@@ -159,11 +162,7 @@ angular.module('starter.controllers', [])
   } else {
     this.$apply(fn);
   }
-};
-})
-
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
+  };
 })
 
 .controller('IssueCtrl', function($scope, $stateParams, $http, AuthService, $ionicPopup) {

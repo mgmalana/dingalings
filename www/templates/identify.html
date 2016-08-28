@@ -21,11 +21,13 @@
 <ion-content class="ion-content-below-my-picture">
     <br>
     <center><h4>What matches your leaf?</h4></center>
-
-  <ion-card>
-    <img src="../img/content.png" style="width: 100%"/>
-  </ion-card>
-
+  <ion-list>
+    <ion-item ng-repeat="tree in trees" ng-click="chooseTree(tree)">
+      <ion-card>
+        <img src="{{tree.picture}}" style="width: 100%"/>
+      </ion-card>
+    </ion-item>
+  </ion-list>
   </ion-content>
 
 </ion-view>

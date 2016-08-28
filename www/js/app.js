@@ -67,7 +67,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   // State route for Kiosk Locator
   .state('identify', {
     url: '/identify',
-    templateUrl: 'templates/identify.html'
+    templateUrl: 'templates/identify.html',
+    controller: 'IdentifyCtrl'
   })
 
   .state('prompt', {
