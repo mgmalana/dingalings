@@ -4,7 +4,7 @@ angular.module('starter.services', [])
 .service('AuthService', function($q, $http) {
   var LOCAL_STORED_USERNAME = 'locallyStoredUsername';
   var LOCAL_STORED_USERID = 'locallyStoredUserID';
-  var API_ROOT = "http://localhost:3000"
+  var API_ROOT = "http://10.0.2.244:3000"
   var userId = '';
   var username = '';
   var isAuthenticated = false;
@@ -161,4 +161,71 @@ angular.module('starter.services', [])
       return null;
     }
   };
+})
+
+.factory('Trees', function() {
+  // Might use a resource here that returns a JSON array
+
+  var trees = [
+  {
+    name:"Palmate",
+    picture:"img/card-01.png",
+    nextlevel:[
+      {
+        name:"Apocynaceae",
+        picture:"img/card-06.png",
+      },
+      {
+        name:"Verbenaceae",
+        picture:"img/card-07.png",
+      },
+      { 
+        name: "Bombacaceae",
+        picture: "img/card-08.png",
+      },
+      {
+        name:"Caricaceae",
+        picture: "img/card-09.png",
+      }
+    ]
+  },
+  {
+    name:"Trifoliate",
+    picture:"img/card-02.png",
+    nextlevel:[
+      {
+        name:"Leguminosae (Papilionoideae)",
+        picture: "img/card-10.png",
+      },
+      {
+        name:"Euphorbiaceae",
+        picture: "img/card-11.png",
+      },
+      { 
+        name:"Rutaceae",
+        picture: "img/card-12.png"
+      }
+    ]
+  },
+  {
+    name:"Opposite single",
+    picture: "img/card-03.png"
+  },
+  {
+    name:"Pinnate",
+    picture: "img/card-04.png"
+  },
+  {
+    name:"Alternate single",
+    picture: "img/card-05.png"
+  }];
+
+  return {
+    all: function() {
+      return trees;
+    }
+  };
 });
+
+
+

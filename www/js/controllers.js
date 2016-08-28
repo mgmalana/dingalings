@@ -88,60 +88,8 @@ angular.module('starter.controllers', [])
   $scope.chat = Chats.get($stateParams.chatId);
 })
 
-.controller('IdentifyCtrl', function($scope, $stateParams, Chats) {
-  $scope.trees = [
-  {
-    name:"Palmate",
-    picture:"img/card-01.png",
-    nextlevel:[
-      {
-        name:"Apocynaceae",
-        picture:"img/card-06.png",
-      },
-      {
-        name:"Verbenaceae",
-        picture:"img/card-07.png",
-      },
-      { 
-        name: "Bombacaceae",
-        picture: "img/card-08.png",
-      },
-      {
-        name:"Caricaceae",
-        picture: "img/card-09.png",
-      }
-    ]
-  },
-  {
-    name:"Trifoliate",
-    picture:"img/card-02.png",
-    nextlevel:[
-      {
-        name:"Leguminosae (Papilionoideae)",
-        picture: "img/card-12.png",
-      },
-      {
-        name:"Euphorbiaceae",
-        picture: "img/card-11.png",
-      },
-      { 
-        name:"Rutaceae",
-        picture: "img/card-10.png"
-      }
-    ]
-  },
-  {
-    name:"Opposite single",
-    picture: "img/card-03.png"
-  },
-  {
-    name:"Pinnate",
-    picture: "img/card-04.png"
-  },
-  {
-    name:"Alternate single",
-    picture: "img/card-05.png"
-  }];
+.controller('IdentifyCtrl', function($scope, $stateParams, $ionicPopup, Trees, $http, $ionicLoading, AuthService) {
+  $scope.trees = Trees.all();
 
   $scope.chooseTree = function (tree){
     if(tree.hasOwnProperty('nextlevel')){
@@ -150,6 +98,55 @@ angular.module('starter.controllers', [])
       $scope.safeApply();
     } else {
       console.log("genus found: " + tree.name);
+      $scope.show('Saving your progress...');
+
+      navigator.geolocation.getCurrentPosition(function(pos) {
+        $scope.isEnabled = true;
+        $scope.coords = {
+          latitude: pos.coords.latitude,
+          longitude: pos.coords.longitude
+        };
+
+        $scope.tree = {
+          name: 'tree.name',
+          latitude: $scope.coords.latitude,
+          longitude: $scope.coords.latitude,
+        };
+        $http.post(AuthService.linkApi + '/api/trees', $scope.tree)
+          .success(function(response) {
+          $scope.show('<img src = "img/Identreefy-09.png" height = 50 style="vertical-align:middle"/> <br>Added!');
+
+          setTimeout(function(){ 
+            $scope.hide();
+            window.location='#map'
+          }, 2000);
+          }).error(function(response) {
+            console.log(response);
+            $scope.show('<img src = "img/Identreefy-10.png" height = 50 style="vertical-align:middle"/> <br>Not uploaded.');
+
+            setTimeout(function(){ 
+              $scope.hide();
+              window.location='#map'
+            }, 2000);
+
+      });
+
+      }, function(error) {
+        $scope.showAlert('Error', 'We couldn\'t retrieve your location.');
+      });
+
+      $scope.showPopup = function() {
+        $scope.data = {}
+        var myPopup = $ionicPopup.show({
+              title: '',
+              scope: $scope,
+              buttons:[]
+        })
+        setTimeout(function(){ 
+          myPopup.close();
+          window.location='#map'
+        }, 2000);
+      }; 
     }
   }
 
@@ -163,8 +160,20 @@ angular.module('starter.controllers', [])
     this.$apply(fn);
   }
   };
-})
 
+  $scope.show = function(message) {
+    $ionicLoading.show({
+      template: message
+    }).then(function(){
+       console.log("The loading indicator is now displayed");
+    });
+  };
+  $scope.hide = function(){
+    $ionicLoading.hide().then(function(){
+       console.log("The loading indicator is now hidden");
+    });
+  };
+})
 .controller('IssueCtrl', function($scope, $stateParams, $http, AuthService, $ionicPopup) {
   $scope.showAlert = function(title, message) {
    var alertPopup = $ionicPopup.alert({
@@ -276,6 +285,7 @@ angular.module('starter.controllers', [])
        console.log("The loading indicator is now hidden");
     });
   };
+
 
   // $scope.showAlert('Eyy', 'Platform is ' + ionic.Platform.platform() + ' // isIOS: ' + ionic.Platform.isIOS());
   $scope.show();
